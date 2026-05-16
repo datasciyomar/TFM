@@ -118,7 +118,7 @@ fig_cal.update_layout(
 st.plotly_chart(fig_cal, use_container_width=True)
 
 st.info("""
-**Rigor académico:** La proximidad a la línea diagonal indica una calibración excelente. 
+La proximidad a la línea diagonal indica una calibración excelente. 
 Esto asegura que el clínico puede confiar en que un paciente con "Riesgo Alto" tiene efectivamente 
 una probabilidad mayor de evento en la práctica real.
 """)
