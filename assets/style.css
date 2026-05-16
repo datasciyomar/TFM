@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Global Typography - Crisp & Clinical */
+html, body, [class*="st-"] {
+    font-family: 'Inter', -apple-system, sans-serif !important;
+}
+
+/* Base Headers: Deep Navy */
+h1 { color: #0f172a; font-weight: 800; letter-spacing: -0.03em; }
+h2 { color: #1e293b; font-weight: 700; letter-spacing: -0.02em; }
+h3 { color: #1e293b; font-weight: 600; }
+h4, h5 { color: #334155; font-weight: 600; }
+hr { border-color: #cbd5e1; border-top-width: 1px; }
+
+/* Sidebar */
+[data-testid="stSidebar"] { 
+    background-color: #f8fafc; /* Very soft cool gray */
+    border-right: 1px solid #e2e8f0;
+}
+[data-testid="stSidebar"] h1 { 
+    font-size: 1.1rem; 
+    color: #475569; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+/* Metric Cards (Scientific Look) */
+[data-testid="stMetric"] { 
+    background: #ffffff; 
+    border-radius: 8px; 
+    padding: 1.25rem; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e2e8f0;
+    border-top: 4px solid #E65014; /* VIU ORANGE Accent */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+[data-testid="stMetric"] label { 
+    font-size: 0.8rem; 
+    color: #64748b; 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+[data-testid="stMetricValue"] {
+    color: #0f172a;
+    font-weight: 700;
+}
+
+/* Primary Button (VIU ORANGE) */
+div[data-testid="stForm"] button[kind="primaryFormSubmit"],
+.stButton > button[kind="primary"] { 
+    background: linear-gradient(135deg, #E65014 0%, #cc420c 100%) !important; 
+    color: white !important;
+    border: none; 
+    border-radius: 6px; 
+    font-weight: 600; 
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 6px -1px rgba(230, 80, 20, 0.25);
+}
+div[data-testid="stForm"] button[kind="primaryFormSubmit"]:hover,
+.stButton > button[kind="primary"]:hover {
+    background: linear-gradient(135deg, #cc420c 0%, #b33608 100%) !important; 
+    transform: translateY(-1px);
+    box-shadow: 0 6px 8px -1px rgba(230, 80, 20, 0.35);
+}
+div[data-testid="stForm"] button[kind="primaryFormSubmit"]:active,
+.stButton > button[kind="primary"]:active {
+    transform: translateY(0);
+}
+
+/* Inputs - Clean Flat Style */
+div[data-baseweb="select"] > div, 
+input[type="number"], 
+input[type="text"] {
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 4px !important;
+    transition: all 0.2s ease;
+}
+div[data-baseweb="select"] > div:focus-within, 
+input[type="number"]:focus {
+    border-color: #E65014 !important;
+    box-shadow: 0 0 0 1px #E65014 !important;
+}
+
+/* Clinical Warning Box (Academic Edition) */
+.clinical-warning { 
+    background: #f1f5f9; 
+    border-left: 4px solid #E65014; /* VIU ORANGE */
+    padding: 1.2rem; 
+    border-radius: 4px;
+    font-size: 0.9rem; 
+    color: #334155; 
+    margin: 1.5rem 0; 
+    font-weight: 500;
+}
+
+/* Base Result Box */
+.result-box { 
+    border-radius: 8px; 
+    padding: 1.8rem; 
+    margin: 1.5rem 0;
+    border: 1px solid #e2e8f0; 
+    background: #ffffff;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.result-high { border-left: 6px solid #b91c1c; } /* Deep Red */
+.result-mid  { border-left: 6px solid #d97706; } /* Orange/Amber */
+.result-low  { border-left: 6px solid #16a34a; } /* Green */
+
+/* Tables and DataFrame */
+[data-testid="stDataFrame"] {
+    border-top: 2px solid #E65014;
+}

@@ -1,0 +1,106 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* Global Typography - Crisp & Clinical Dark */
+html, body, [class*="st-"] {
+    font-family: 'Inter', -apple-system, sans-serif !important;
+}
+
+/* Background Override */
+.stApp {
+    background-color: #0f172a !important; /* Midnight Navy */
+}
+
+/* Base Headers: Crisp White for Dark Mode */
+h1 { color: #f8fafc; font-weight: 800; letter-spacing: -0.03em; }
+h2 { color: #e2e8f0; font-weight: 700; letter-spacing: -0.02em; }
+h3 { color: #e2e8f0; font-weight: 600; }
+h4, h5 { color: #94a3b8; font-weight: 600; }
+hr { border-color: #334155; border-top-width: 1px; }
+
+/* In-text markdown */
+p, span, li, label, .stMarkdown { color: #cbd5e1 !important; }
+
+/* Sidebar */
+[data-testid="stSidebar"] { 
+    background-color: #1e293b !important; /* Slate 800 */
+    border-right: 1px solid #334155 !important;
+}
+[data-testid="stSidebar"] h1, [data-testid="stSidebar"] p { 
+    color: #94a3b8 !important; 
+}
+
+/* Metric Cards (Scientific Look - Dark Mode) */
+[data-testid="stMetric"] { 
+    background: #1e293b !important; 
+    border-radius: 8px; 
+    padding: 1.25rem; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid #334155 !important;
+    border-top: 4px solid #E65014 !important; /* VIU ORANGE Accent */
+}
+[data-testid="stMetric"] label { 
+    color: #94a3b8 !important; 
+}
+[data-testid="stMetricValue"] {
+    color: #f8fafc !important;
+    font-weight: 700;
+}
+
+/* Primary Button (VIU ORANGE) */
+div[data-testid="stForm"] button[kind="primaryFormSubmit"],
+.stButton > button[kind="primary"] { 
+    background: linear-gradient(135deg, #E65014 0%, #cc420c 100%) !important; 
+    color: white !important;
+    border: none; 
+    border-radius: 6px; 
+    font-weight: 600; 
+    font-size: 1.05rem;
+    padding: 0.6rem 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(230, 80, 20, 0.25);
+}
+
+/* Inputs - Dark Mode Flat Style */
+div[data-baseweb="select"] > div, 
+input[type="number"], 
+input[type="text"] {
+    background-color: #0f172a !important;
+    border: 1px solid #334155 !important;
+    color: #f8fafc !important;
+    border-radius: 4px !important;
+}
+div[data-baseweb="select"] > div:focus-within, 
+input[type="number"]:focus {
+    border-color: #E65014 !important;
+    box-shadow: 0 0 0 1px #E65014 !important;
+    background-color: #1e293b !important;
+}
+ul[data-baseweb="menu"] { background-color: #1e293b !important; color: white !important;}
+li[disabled=""] { color: #cbd5e1 !important;}
+
+/* Clinical Warning Box (Dark Mode Edition) */
+.clinical-warning { 
+    background: #1e293b !important; 
+    border-left: 4px solid #E65014 !important;
+    padding: 1.2rem; 
+    border-radius: 4px;
+    color: #cbd5e1 !important; 
+    margin: 1.5rem 0; 
+}
+
+/* Base Result Box */
+.result-box { 
+    border-radius: 8px; 
+    padding: 1.8rem; 
+    margin: 1.5rem 0;
+    border: 1px solid #334155; 
+    background: #1e293b;
+}
+.result-high { border-left: 6px solid #ef4444; } 
+.result-mid  { border-left: 6px solid #f59e0b; } 
+.result-low  { border-left: 6px solid #22c55e; } 
+
+/* Tables and DataFrame */
+[data-testid="stDataFrame"] {
+    border-top: 2px solid #E65014;
+    background-color: #1e293b;
+}
