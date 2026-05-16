@@ -149,6 +149,13 @@ def preprocess_patient(
     """
     df = pd.DataFrame([patient_dict])
 
+    # Asegurar que todas las feature_cols existan con NaN si no se pasaron, 
+    # para que las reglas de imputación (medianas/modas) se apliquen.
+    if feature_cols:
+        for col in feature_cols:
+            if col not in df.columns:
+                df[col] = np.nan
+
     # 1. Imputación MNAR → categoría informativa
     for v in MNAR_VARS:
         if v in df.columns:
@@ -184,6 +191,14 @@ def preprocess_patient(
 
     # 6. Encoding con los encoders de TRAIN
     label_encoders = pipeline_objects.get("label_encoders", {})
+    
+    # Asegurar que las columnas a encodear sean de tipo string
+    for col in label_encoders:
+        if col in df.columns and df[col].isnull().any():
+            df[col] = df[col].fillna("Missing").astype(str)
+        elif col in df.columns:
+            df[col] = df[col].astype(str)
+
     cat_cols = df.select_dtypes(include=["object"]).columns.tolist()
 
     for col in cat_cols:
