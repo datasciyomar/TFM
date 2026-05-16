@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* Global Typography - Crisp & Clinical */
-html, body, [class*="st-"] {
+html, body, [class*="st-"]:not(.material-symbols-rounded) {
     font-family: 'Inter', -apple-system, sans-serif !important;
+}
+
+/* Fix Streamlit Expander/Button Icons */
+.material-symbols-rounded, .material-icons {
+    font-family: 'Material Symbols Rounded', 'Material Icons' !important;
 }
 
 /* Base Headers: Deep Navy */
