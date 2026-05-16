@@ -1,13 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* Global Typography - Crisp & Clinical Dark */
-html, body, [class*="st-"]:not(.material-symbols-rounded) {
+.stApp {
     font-family: 'Inter', -apple-system, sans-serif !important;
 }
-
-/* Fix Streamlit Expander/Button Icons */
-.material-symbols-rounded, .material-icons {
-    font-family: 'Material Symbols Rounded', 'Material Icons' !important;
+h1, h2, h3, h4, h5, h6, p, label, li, th, td {
+    font-family: 'Inter', -apple-system, sans-serif !important;
 }
 
 /* Background Override */
@@ -23,7 +21,7 @@ h4, h5 { color: #94a3b8; font-weight: 600; }
 hr { border-color: #334155; border-top-width: 1px; }
 
 /* In-text markdown */
-p, span, li, label, .stMarkdown { color: #cbd5e1 !important; }
+p, li, label, .stMarkdown { color: #cbd5e1 !important; }
 
 /* Sidebar */
 [data-testid="stSidebar"] { 
