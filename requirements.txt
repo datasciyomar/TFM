@@ -33,5 +33,10 @@ statsmodels>=0.14.2
 pydantic>=2.0.0
 
 # Testing y Calidad de Código
+# Testing y Calidad de Código
 pytest>=7.0.0
 ruff>=0.4.0
+
+# Gráficos Interactivos
+plotly>=5.0.0
+
