@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 # ─── RUTAS ───────────────────────────────────────────────────────────────────
 # Ajustar si la estructura de carpetas difiere.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODELS_DIR = os.path.join(BASE_DIR, "models")
 PROC_DIR = os.path.join(BASE_DIR, "data", "processed")
 
