@@ -84,11 +84,13 @@ with st.form("patient_form"):
 
 # ─── LÓGICA DE COMPUTACIÓN ───────────────────────────────────────────────────
 if submitted:
+    mrd_map = {"Negativo": "Negative", "Positivo": "Positive", "No disponible": "Missing"}
+    
     p_dict = {
         "age_at_hct": age_at_hct, "donor_age": donor_age, "karnofsky_score": float(karnofsky_score),
         "comorbidity_score": float(comorbidity_score), "year_hct": year_hct,
         "prim_disease_hct": prim_disease_hct, "dri_score": dri_score, "cyto_score": cyto_score,
-        "mrd_hct": mrd_hct, "conditioning_intensity": conditioning_intensity,
+        "mrd_hct": mrd_map.get(mrd_hct, "Missing"), "conditioning_intensity": conditioning_intensity,
         "donor_related": donor_related, "graft_type": graft_type, "cmv_status": cmv_status,
         "tbi_status": tbi_status, "sex_match": sex_match, "in_vivo_tcd": in_vivo_tcd,
         "race_group": race_group, "diabetes": "No", "obesity": "No", "cardiac": "No",
@@ -198,14 +200,14 @@ if st.session_state["prediction_results"]:
     t_range = np.linspace(0, 60, 100) # 5 años (estándar clínico)
     # Curva base (S0) aproximada: Weibull con λ=30, k=1.4
     s0 = np.exp(- (t_range / 30)**1.4) 
-    # Factor de aceleración (AF) = exp(score)
-    accel_factor = np.exp(res["score"])
-    s_patient = np.exp(- (t_range / (30 * (1/accel_factor)))**1.4) # En AFT, score alto acelera el fallo
+    # El modelo predice tiempo de supervivencia estimado (T_pred). res["score"] es -T_pred.
+    t_pred = -res["score"]
+    s_patient = np.exp(- (t_range / t_pred)**1.4) 
 
     fig_surv = go.Figure()
     # Intervalo de confianza visual (Sombreado heurístico para rigor estético/académico)
-    s_lo = np.exp(- (t_range / (25 * (1/accel_factor)))**1.4)
-    s_hi = np.exp(- (t_range / (35 * (1/accel_factor)))**1.4)
+    s_lo = np.exp(- (t_range / (t_pred * 0.85))**1.4)
+    s_hi = np.exp(- (t_range / (t_pred * 1.15))**1.4)
     
     fig_surv.add_trace(go.Scatter(x=np.concatenate([t_range, t_range[::-1]]), 
                                  y=np.concatenate([s_hi, s_lo[::-1]]),
@@ -255,11 +257,19 @@ if st.session_state["prediction_results"]:
             
             # Lógica de simulación dinámica (Deltas basados en coeficientes AFT típicos)
             if target_var == "KPS (Estado Funcional)":
-                val_sim = st.slider("Hipótesis: Subir KPS hasta", int(karnofsky_score), 100, 100, step=10)
+                if karnofsky_score >= 100:
+                    val_sim = 100
+                    st.info("El paciente ya tiene KPS máximo (100).")
+                else:
+                    val_sim = st.slider("Hipótesis: Subir KPS hasta", int(karnofsky_score), 100, 100, step=10)
                 delta_risk = -0.12 * ((val_sim - karnofsky_score)/10)
                 reasoning = "La prehabilitación física mejora la reserva fisiológica, reduciendo la mortalidad no relacionada con recaída (NRM)."
             elif target_var == "Sorror Index (Comorbilidades)":
-                val_sim = st.slider("Hipótesis: Estabilizar comorbilidades a", 0, int(comorbidity_score), 0)
+                if comorbidity_score <= 0:
+                    val_sim = 0
+                    st.info("El paciente ya tiene Índice Sorror óptimo (0).")
+                else:
+                    val_sim = st.slider("Hipótesis: Estabilizar comorbilidades a", 0, int(comorbidity_score), 0)
                 delta_risk = -0.09 * (comorbidity_score - val_sim)
                 reasoning = "El manejo agresivo de disfunciones orgánicas (renal/hepática) pre-HCT optimiza la tolerancia al acondicionamiento."
             else:
