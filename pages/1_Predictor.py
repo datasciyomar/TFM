@@ -158,17 +158,25 @@ if st.session_state["prediction_results"]:
         st.warning("**Aviso de representatividad:** El perfil de este paciente (edad o comorbilidades) se sitúa en los extremos de la cohorte de entrenamiento. Interprete el resultado con cautela (limitación de generalización).", icon="⚠️")
 
     # ── INTERPRETACIÓN CLÍNICA DETALLADA ─────────────────────────────────────
-    interp_styles = {
-        "Bajo": ("#dcfce7", "#166534", "El riesgo de EFS es favorable (inferior al percentil 33). Según guías del CIBMTR/EBMT, este perfil permite protocolos estándar con alta probabilidad de éxito. Se prioriza la monitorización rutinaria."),
-        "Moderado": ("#fef9c3", "#854d0e", "Riesgo estándar. El equilibrio pronóstico sugiere una evolución según la media de la cohorte. Se recomienda vigilancia estrecha de factores SHAP negativos y optimización funcional pre-HCT."),
-        "Alto": ("#fee2e2", "#991b1b", "ALERTA: Riesgo elevado (tercil superior). Según literatura avanzada (Armand 2021), este perfil requiere revisión multidisciplinar. Considere ajustar la intensidad del acondicionamiento o profilaxis adicional de EICH (GVHD).")
-    }
+    is_dark = st.session_state.get("dark_mode", False)
+    if is_dark:
+        interp_styles = {
+            "Bajo": ("#022c22", "#34d399", "El riesgo de EFS es favorable (inferior al percentil 33). Según guías del CIBMTR/EBMT, este perfil permite protocolos estándar con alta probabilidad de éxito. Se prioriza la monitorización rutinaria."),
+            "Moderado": ("#451a03", "#fbbf24", "Riesgo estándar. El equilibrio pronóstico sugiere una evolución según la media de la cohorte. Se recomienda vigilancia estrecha de factores SHAP negativos y optimización funcional pre-HCT."),
+            "Alto": ("#450a0a", "#fca5a5", "ALERTA: Riesgo elevado (tercil superior). Según literatura avanzada (Armand 2021), este perfil requiere revisión multidisciplinar. Considere ajustar la intensidad del acondicionamiento o profilaxis adicional de EICH (GVHD).")
+        }
+    else:
+        interp_styles = {
+            "Bajo": ("#dcfce7", "#166534", "El riesgo de EFS es favorable (inferior al percentil 33). Según guías del CIBMTR/EBMT, este perfil permite protocolos estándar con alta probabilidad de éxito. Se prioriza la monitorización rutinaria."),
+            "Moderado": ("#fef9c3", "#854d0e", "Riesgo estándar. El equilibrio pronóstico sugiere una evolución según la media de la cohorte. Se recomienda vigilancia estrecha de factores SHAP negativos y optimización funcional pre-HCT."),
+            "Alto": ("#fee2e2", "#991b1b", "ALERTA: Riesgo elevado (tercil superior). Según literatura avanzada (Armand 2021), este perfil requiere revisión multidisciplinar. Considere ajustar la intensidad del acondicionamiento o profilaxis adicional de EICH (GVHD).")
+        }
     bg, fg, txt = interp_styles[res["label"]]
     
     st.markdown(f"""
-        <div style="padding:20px; border-radius:10px; background-color:{bg}; border-left:8px solid {res['color']}; color:{fg}; margin:10px 0;">
-            <h4 style="margin:0 0 10px 0; color:{fg};">📋 Interpretación clínica: Riesgo {res['label']}</h4>
-            <p style="margin:0; line-height:1.5;">{txt}</p>
+        <div style="padding:20px; border-radius:10px; background-color:{bg}; border-left:8px solid {res['color']}; color:{fg} !important; margin:10px 0;">
+            <h4 style="margin:0 0 10px 0; color:{fg} !important;">📋 Interpretación clínica: Riesgo {res['label']}</h4>
+            <p style="margin:0; line-height:1.5; color:{fg} !important;">{txt}</p>
         </div>
     """, unsafe_allow_html=True)
 

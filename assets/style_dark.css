@@ -107,3 +107,18 @@ li[disabled=""] { color: #cbd5e1 !important;}
     border-top: 2px solid #E65014;
     background-color: #1e293b;
 }
+
+/* Fix Streamlit Header in Dark Mode */
+header[data-testid="stHeader"], [data-testid="stHeader"], header {
+    background-color: #0f172a !important;
+    background: #0f172a !important;
+    color: #f8fafc !important;
+}
+header[data-testid="stHeader"] svg, 
+header[data-testid="stHeader"] button, 
+header[data-testid="stHeader"] a,
+header svg, header button, header a {
+    color: #cbd5e1 !important;
+    fill: #cbd5e1 !important;
+}
+
