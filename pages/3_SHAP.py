@@ -169,23 +169,25 @@ st.markdown("---")
 st.markdown("### Importancia SHAP por grupo racial")
 
 if SHAP_OK:
-    top10_idx = np.argsort(np.abs(shap_vals).mean(axis=0))[::-1][:10]
+    n_feats = min(10, shap_vals.shape[1])
+    top10_idx = np.argsort(np.abs(shap_vals).mean(axis=0))[::-1][:n_feats]
     top10_labs = [get_label(list(X_sample.columns)[i]) for i in top10_idx]
-    matrix = np.zeros((len(RACE_ORDER), 10))
+    matrix = np.zeros((len(RACE_ORDER), len(top10_idx)))
     for i, race in enumerate(RACE_ORDER):
         mask = race_sample == race
         if mask.any():
             matrix[i] = np.abs(shap_vals[mask][:, top10_idx]).mean(axis=0)
 else:
-    top10_labs = top_labs[:10]
-    matrix = np.random.uniform(0.05, 0.2, (len(RACE_ORDER), 10))
+    top10_labs = top_labs[:min(10, len(top_labs))]
+    matrix = np.random.uniform(0.05, 0.2, (len(RACE_ORDER), len(top10_labs)))
 
 fig_heat = px.imshow(
     matrix, x=top10_labs, y=RACE_ORDER,
     color_continuous_scale="YlOrRd",
     labels=dict(color="|SHAP| medio"),
-    title="<b>Distribución de la irtancia predictiva por raza</b>"
+    title="<b>Distribución de la importancia predictiva por raza</b>"
 )
+
 fig_heat.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", height=450)
 st.plotly_chart(fig_heat, use_container_width=True)
 
