@@ -7,7 +7,6 @@ streamlit>=1.35.0
 
 # ML y supervivencia
 xgboost>=2.0.3
-scikit-survival>=0.23.0
 scikit-learn>=1.4.2
 
 # Interpretabilidad
@@ -32,11 +31,7 @@ statsmodels>=0.14.2
 # Validación de datos
 pydantic>=2.0.0
 
-# Testing y Calidad de Código
-# Testing y Calidad de Código
-pytest>=7.0.0
-ruff>=0.4.0
-
 # Gráficos Interactivos
 plotly>=5.0.0
+
 
