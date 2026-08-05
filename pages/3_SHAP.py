@@ -54,7 +54,7 @@ def get_label(col):
 
 @st.cache_data(show_spinner="Calculando SHAP (puede tardar 1-2 minutos)…")
 def compute_global_shap(_val_data, _pipeline, _explainer, _xgb_model):
-    if not _val_data or "X_val" not in _val_data:
+    if not _val_data or "X_val" not in _val_data or _explainer is None:
         return None, None, None
     X_val = _val_data["X_val"]
     race_val = _val_data.get("race_val", np.array([]))
@@ -71,8 +71,12 @@ def compute_global_shap(_val_data, _pipeline, _explainer, _xgb_model):
     X_sample = X_val.iloc[sample_idx]
     race_sample = race_val[sample_idx]
     dmat = xgb.DMatrix(X_sample, feature_names=list(X_sample.columns))
-    shap_vals = _explainer.shap_values(dmat)
-    return -shap_vals, X_sample, race_sample
+    try:
+        shap_vals = _explainer.shap_values(dmat)
+        return -shap_vals, X_sample, race_sample
+    except Exception:
+        return None, None, None
+
 
 if DATA_OK and not DEMO:
     shap_vals, X_sample, race_sample = compute_global_shap(val_data, pipeline, explainer, xgb_model)

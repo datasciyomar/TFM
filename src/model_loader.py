@@ -93,7 +93,12 @@ def load_shap_explainer():
     # -------------------------------------------------
 
     # Ahora TreeExplainer podrá instanciarse sin lanzar AttributeError
-    return shap.TreeExplainer(model, feature_names=feature_names)
+    try:
+        return shap.TreeExplainer(model, feature_names=feature_names)
+    except Exception as e:
+        logger.warning(f"No se pudo instanciar TreeExplainer de SHAP: {e}")
+        return None
+
 
 
 # ─── CARGA DE DATOS DE VALIDACIÓN (para página de equidad) ───────────────────

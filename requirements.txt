@@ -16,8 +16,9 @@ shap>=0.45.0
 lifelines>=0.29.0
 
 # Data
-numpy>=1.26.4
+numpy>=1.26.4,<2.0.0
 pandas>=2.2.1
+
 pyarrow>=16.0.0
 
 # Visualización
